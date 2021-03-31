@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Infatuation.Project.Web;
 
 namespace Infatuation.Foundation.LocalServiceClient.Models
 {
@@ -10,6 +11,7 @@ namespace Infatuation.Foundation.LocalServiceClient.Models
         [JsonPropertyName("fullName")]
         public string FullName { get; set; }
         [JsonPropertyName("createdAt")]
+        [JsonConverter(typeof(CustomDateJsonConverter))]
         public DateTime CreatedAt { get; set; }
         [JsonPropertyName("stargazersCount")]
         public int StargazersCount { get; set; }

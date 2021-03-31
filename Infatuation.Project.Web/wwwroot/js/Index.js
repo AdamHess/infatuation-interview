@@ -1,8 +1,19 @@
-﻿$(function() {
-    $('.deleteButton').click(function(e) {
+﻿$(function () {
+
+    initialLoad();
+    async function initialLoad() {
+        let templateHtml = await $.get("/listingTemplate.html");
+        let templateFunction = Handlebars.compile(templateHtml);
+        let data = await $.get('/localservice');
+        let renderedHtml = templateFunction(data);
+        $('#indexBody').html(renderedHtml);
+
+    }
+
+    $('body').on('click', '.deleteButton', function(e) {
 
         $.ajax({
-                url: `/Home/DeleteRepo/${$(e.target).data('id')}`,
+            url: `/localservice/${$(e.target).data('id')}`,
                 method: 'DELETE'
             })
             .done(function () {
@@ -11,7 +22,7 @@
             .fail(function() {
                 alert("unable to delete");
             });
-
     });
+
 
 })

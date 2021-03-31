@@ -21,7 +21,10 @@ namespace Infatuation.Project.Web.Controllers
         private readonly GitHubClient _githubClient;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, LocalServiceClient localLocalServiceClient, GitHubClient client, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, 
+            LocalServiceClient localLocalServiceClient, 
+            GitHubClient client, 
+            IMapper mapper)
         {
             _logger = logger;
             _localServiceClient = localLocalServiceClient;
@@ -32,8 +35,7 @@ namespace Infatuation.Project.Web.Controllers
 
         public IActionResult Index()
         {
-            var model = _localServiceClient.GetRepos();
-            return View(model);
+            return View();
         }
 
 
@@ -70,7 +72,7 @@ namespace Infatuation.Project.Web.Controllers
             }
             return Ok();
         }
-
+        [HttpDelete]
         public IActionResult DeleteRepo(long id)
         {
             var result = _localServiceClient.DeleteRepoItem(id);

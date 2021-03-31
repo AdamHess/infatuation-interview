@@ -1,43 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-    
-}
+﻿@using Infatuation.Foundation.LocalServiceClient
 @inject LocalServiceClient lsc
-@using Infatuation.Foundation.LocalServiceClient
-@using Infatuation.Foundation.LocalServiceClient.Models
-@model IEnumerable<Infatuation.Foundation.LocalServiceClient.Models.RepoItem>
+
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
 
 <h2>Server Status: @(lsc.CheckServerHealth() ? "OK" : "Not Ok" )</h2>
 
-@if (Model != null && Model.Any())
-{
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Full Name</th>
-            <th>Created At</th>
-            <th>Stargazers</th>
-            <th>Language</th>
-            <th>Link</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.FullName</td>
-                <td>@item.CreatedAt.ToShortDateString()</td>
-                <td>@item.StargazersCount</td>
-                <td>@item.Language</td>
-                <td><a href="@item.HtmlUrl">Access</a></td>
-                <td><div class="btn btn-danger deleteButton" data-id="@item.Id">Delete</div></td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<div id="indexBody"></div>
 
 @section Scripts
 {
