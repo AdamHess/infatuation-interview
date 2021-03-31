@@ -1,0 +1,31 @@
+﻿@model Octokit.SearchRepositoryResult
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+            <th>Id</th>
+            <th>Full Name</th>
+            <th>Created At</th>
+            <th>Stargazers</th>
+            <th>Language</th>
+            <th>Link</th>
+            <th>Save</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FullName</td>
+                <td>@item.CreatedAt.ToString("d")</td>
+
+                <td>@item.StargazersCount</td>
+
+                <td>@item.Language</td>
+                <td><a class="btn" href="@item.HtmlUrl">Access</a></td>
+                <td><div data-github-repo-id="@item.Id" class="saveButton btn btn-primary">Save</div></td>
+            </tr>
+        }
+    </tbody>
+</table>

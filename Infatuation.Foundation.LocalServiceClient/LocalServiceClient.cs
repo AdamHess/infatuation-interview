@@ -62,19 +62,22 @@ namespace Infatuation.Foundation.LocalServiceClient
             return data?.Repos;
         }
 
-        public void AddRepoItem(RepoItem toAdd)
+        public bool AddRepoItem(RepoItem toAdd)
         {
             var request = new RestRequest(ServiceConstants.Repo, Method.POST)
                 .AddJsonBody(toAdd);
             var result = _client.Execute(request);
 
+            return result.IsSuccessful;
+
         }
 
-        public void DeleteRepoItem(string id)
+        public bool DeleteRepoItem(long id)
         {
             var request = new RestRequest(ServiceConstants.Repo + "{id}", Method.DELETE)
                 .AddUrlSegment("id", id);
             var result = _client.Execute(request);
+            return result.IsSuccessful;
         }
     }
 }

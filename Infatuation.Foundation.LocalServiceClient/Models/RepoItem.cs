@@ -16,7 +16,7 @@ namespace Infatuation.Foundation.LocalServiceClient.Models
         [JsonPropertyName("language")]
         public string Language { get; set; }
         [JsonPropertyName("url")]
-        public string Url { get; set; }
+        public string HtmlUrl { get; set; }
 
 
     }
