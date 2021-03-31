@@ -1,0 +1,29 @@
+﻿{{#if this}}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Full Name</th>
+        <th>Created At</th>
+        <th>Stargazers</th>
+        <th>Language</th>
+        <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each this}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.fullName}}</td>
+        <td>{{this.createdAt}}</td>
+        <td>{{this.stargazersCount}}</td>
+        <td>{{this.language}}</td>
+        <td><a href="{{this.htmlUrl}}">Access</a></td>
+        <td><div class="btn btn-primary saveButton" data-id="{{this.id}}">Save</div></td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+{{else}}
+<h2>No Saved Repos, add some!</h2>
+{{/if}}

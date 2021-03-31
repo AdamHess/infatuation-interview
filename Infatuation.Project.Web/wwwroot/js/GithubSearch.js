@@ -1,18 +1,27 @@
 ﻿$(function () {
 
     main();
-
+    let templateFunction;
     function main() {
+        initialLoad();
         configureSearch();
-        configureSave();
+        rebindSave();
     }
+
+    async function initialLoad() {
+        let templateHtml = await $.get("/githubListingTemplate.html");
+        templateFunction = Handlebars.compile(templateHtml);
+    }
+
 
     function configureSearch() {
         let dynamicSearch = _.debounce(function () {
             let searchTerm = $(this).val();
             if (searchTerm.length > 3) {
                 $("#githubSearchResults").html("<img width='500' height='500' src='/loadingspinner.gif'/>");
-                $('#githubSearchResults').load('/Home/GithubResults?q=' + encodeURIComponent(searchTerm))
+                var results = await $.get('/githubrepos/search?q=' + encodeURIComponent(searchTerm));
+                $("#githubSearchResults").html(templateFunction(results));
+                rebindSave();
             }
 
         }, 500)
@@ -20,8 +29,8 @@
 
     }
 
-    function configureSave() {
-        $('body').on('click','.saveButton',function(e) {
+    function rebindSave() {
+        $('saveButton').click(function(e) {
             let target = $(e.target);
             let githubId = target.data('githubRepoId');
 

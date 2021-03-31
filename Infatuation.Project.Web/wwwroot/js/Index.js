@@ -2,7 +2,8 @@
 
     initialLoad();
     async function initialLoad() {
-        let templateHtml = await $.get("/listingTemplate.html");
+        $('#indexBody').html("<img width=500 height=500 src='/loadingspinner.gif'/>");
+        let templateHtml = await $.get("/localListingTemplate.html");
         let templateFunction = Handlebars.compile(templateHtml);
         let data = await $.get('/localservice');
         let renderedHtml = templateFunction(data);

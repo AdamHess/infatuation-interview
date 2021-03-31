@@ -10,7 +10,6 @@ using RestSharp;
 
 namespace Infatuation.Project.Web.Controllers
 {
-    [Route("githubrepos")]
     [ApiController]
     public class GithubController : Controller
     {
@@ -28,6 +27,7 @@ namespace Infatuation.Project.Web.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [Route("/githubrepos/search")]
         public async Task<IActionResult> Search(string q, int pagesize = 30, int page = 0)
         {
 
