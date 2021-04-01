@@ -8,6 +8,7 @@
         <th>Stargazers</th>
         <th>Language</th>
         <th>Link</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -19,11 +20,11 @@
         <td>{{this.stargazersCount}}</td>
         <td>{{this.language}}</td>
         <td><a href="{{this.htmlUrl}}">Access</a></td>
-        <td><div class="btn btn-primary saveButton" data-id="{{this.id}}">Save</div></td>
+        <td><button class="btn btn-primary saveButton" data-id="{{this.id}}">Save</button></td>
     </tr>
     {{/each}}
     </tbody>
 </table>
 {{else}}
-<h2>No Saved Repos, add some!</h2>
+<h2>No Results</h2>
 {{/if}}

@@ -8,6 +8,7 @@
         rebindSave();
     }
 
+
     async function initialLoad() {
         let templateHtml = await $.get("/githubListingTemplate.html");
         templateFunction = Handlebars.compile(templateHtml);
@@ -15,13 +16,18 @@
 
 
     function configureSearch() {
-        let dynamicSearch = _.debounce(function () {
+        let dynamicSearch = _.debounce( async function () {
             let searchTerm = $(this).val();
             if (searchTerm.length > 3) {
-                $("#githubSearchResults").html("<img width='500' height='500' src='/loadingspinner.gif'/>");
+                $("#githubSearchResults").html("<img class='loadingIcon' src='/loadingspinner.gif'/>");
                 var results = await $.get('/githubrepos/search?q=' + encodeURIComponent(searchTerm));
                 $("#githubSearchResults").html(templateFunction(results));
-                rebindSave();
+
+                $("#githubSearchResults table").DataTable({
+                    searching: false,
+                    paging: false,
+                    bInfo: false
+                });
             }
 
         }, 500)
@@ -30,17 +36,19 @@
     }
 
     function rebindSave() {
-        $('saveButton').click(function(e) {
+        $('body').on('click', '.saveButton', function (e) {
+            
             let target = $(e.target);
-            let githubId = target.data('githubRepoId');
-
-            $.post("/Home/SaveGithubRepo?githubRepoId=" + encodeURIComponent(githubId))
+            if (target.attr("disabled")) {
+                return;
+            }
+            let githubId = target.data('id');
+            $.post("/localservice/" + encodeURIComponent(githubId))
                 .done(function () {
-                    target.addClass('disabled');
                     target.text("Saved");
+                    target.attr("disabled", "");
                 })
                 .fail(function() {
-
                     alert("Unable To Save Repo");   
                 });
         });

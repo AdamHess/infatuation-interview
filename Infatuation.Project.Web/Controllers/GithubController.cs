@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Infatuation.Foundation.LocalServiceClient;
 using Microsoft.Extensions.Logging;
 using Octokit;
 using RestSharp;
@@ -17,14 +18,17 @@ namespace Infatuation.Project.Web.Controllers
         private readonly GitHubClient _githubClient;
         private readonly IMapper _mapper;
         private readonly ILogger<GithubController> _logger;
+        private readonly LocalServiceClient _localServiceClient;
 
         public GithubController(ILogger<GithubController> logger,
             GitHubClient client,
+            LocalServiceClient lsc,
             IMapper mapper)
         {
             _logger = logger;
             _githubClient = client;
             _mapper = mapper;
+            _localServiceClient = lsc;
         }
         [HttpGet]
         [Route("/githubrepos/search")]
@@ -41,7 +45,9 @@ namespace Infatuation.Project.Web.Controllers
             try
             {
                 var result = await _githubClient.Search.SearchRepo(srr);
-                return Json(result);
+                var ids =_localServiceClient.GetRepos().Select(m => m.Id);
+                var nonSavedResults= result.Items.Where(i => !ids.Contains(i.Id.ToString()));
+                return Json(nonSavedResults);
             }
             catch (Exception e)
             {
