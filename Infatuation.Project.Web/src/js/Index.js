@@ -1,16 +1,17 @@
-﻿const templateFunction = require('../templates/localListingTemplate.hbs');
+﻿import templateFunction  from '../templates/localListingTemplate.hbs'
 import $ from 'jquery'
-class Index {
+export default class Index {
     constructor($el) {
         this.$el = $el;
         this._displayLoading();
-        this._loadDependencies();
+        this._loadTable();
+        this._configureEvents();
 
     }
     _displayLoading() {
         this.$el.html("<img class='loadingIcon' src='/loadingspinner.gif'/>");
     }
-    async _initialLoad() {
+    async _loadTable() {
         let data = await $.get('/localservice');
         let renderedHtml = templateFunction(data);
         this.$el.html(renderedHtml);
@@ -38,4 +39,3 @@ class Index {
 }
 
 
-$('')

@@ -3,15 +3,15 @@ const path = require('path');
 const webpack =require('Webpack');
 module.exports = {
     mode: 'development',
-    entry: './src/js/index.js',
+    entry: './src/js/main.js',
     output: {
         path: path.resolve(__dirname, 'wwwroot/js'),
-        filename: 'index.js'
+        filename: 'main.js'
     },
     plugins: [
         new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
+            $: "jQuery",
+            jQuery: "jQuery"
         })
     ],
     module: {

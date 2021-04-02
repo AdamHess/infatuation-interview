@@ -11,8 +11,7 @@
     <Content Include="src\js\GithubSearch.js" />
     <Content Include="src\js\Index.js" />
     <Content Include="src\js\site.js" />
-    <Content Include="src\templates\githubListingTemplate.html" />
-    <Content Include="src\templates\localListingTemplate.html" />
+    <Content Include="src\templates\githubListingTemplate.hbs" />
   </ItemGroup>
 
   <ItemGroup>
