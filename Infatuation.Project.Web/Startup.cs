@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Octokit;
 
 namespace Infatuation.Project.Web
@@ -29,7 +30,11 @@ namespace Infatuation.Project.Web
             services.AddControllersWithViews();
 
             services.AddTransient<LocalServiceClient>(m =>
-                new LocalServiceClient(m.GetRequiredService<IConfiguration>()["LocalServiceUrl"]));
+            {
+                var logger = m.GetService<ILogger<LocalServiceClient>>();
+                return new LocalServiceClient(m.GetRequiredService<IConfiguration>()["LocalServiceUrl"], logger);
+
+            });
 
             services.AddSingleton(m =>
             {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using Infatuation.Foundation.LocalServiceClient.Models;
+using Microsoft.Extensions.Logging;
 using RestSharp;
 using RestSharp.Serializers.SystemTextJson;
 
@@ -13,19 +14,16 @@ namespace Infatuation.Foundation.LocalServiceClient
     {
         private readonly string _serviceUrl;
         private RestClient _client;
+        private readonly ILogger<LocalServiceClient> _logger;
 
 
-        public LocalServiceClient(string ServiceUrl)
+        public LocalServiceClient(string ServiceUrl, ILogger<LocalServiceClient> logger)
         {
             _serviceUrl = ServiceUrl;
             ConfigureClient();
+            _logger = logger;
         }
 
-        public LocalServiceClient()
-        {
-            _serviceUrl = "http://localhost:8080/";
-            ConfigureClient();
-        }
 
         private void ConfigureClient()
         {
@@ -43,9 +41,10 @@ namespace Infatuation.Foundation.LocalServiceClient
             var result = _client.Get(request);
             if (result.ResponseStatus == ResponseStatus.Error)
             {
-                throw new Exception();
+                _logger.LogError($"Unable to check status: {result.ErrorMessage}");
+                return false;
             }
-           return result.Content == "OK";
+            return result.Content == "OK";
         }
 
         public IEnumerable<RepoItem> GetRepos()
@@ -55,7 +54,8 @@ namespace Infatuation.Foundation.LocalServiceClient
             var result = _client.Get<RepoListing>(request);
             if (result.ResponseStatus == ResponseStatus.Error)
             {
-                throw new Exception();
+                _logger.LogError($"Unable to get repos: {result.ErrorMessage}" );
+                return null;
             }
             //restsharp builtin serializer not working
             var data = JsonSerializer.Deserialize<RepoListing>(result.Content);
