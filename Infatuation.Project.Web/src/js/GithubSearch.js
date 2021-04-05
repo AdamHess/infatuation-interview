@@ -9,8 +9,7 @@ export default class GithubSearch extends React.Component {
             searchResults: []
         };
         this.searchForRepo = this.searchForRepo.bind(this);
-        this.saveRepo = this.saveRepo.bind(this);
-
+        this.saveRepo = this.saveRepo.bind(this);        
     }
 
     async searchForRepo(e) {

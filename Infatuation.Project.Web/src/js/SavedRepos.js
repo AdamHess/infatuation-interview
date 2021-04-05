@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-export default class SavedResources extends React.Component {
+export default class SavedRepos extends React.Component {
     constructor(options) {
         super(options);
         this.deleteRepo = this.deleteRepo.bind(this);

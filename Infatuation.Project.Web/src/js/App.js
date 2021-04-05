@@ -1,15 +1,47 @@
-import logo from './logo.svg';
+import React from 'react';
 
-function App() {
-  return (
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import SavedRepos from './SavedRepos';
+import GithubSearch from './GithubSearch';
 
-    <div class="container" className="App">
-        <main role="main" class="pb-3">
+class App extends React.Component {
+  constructor(opts) {
+  super(opts);
+  }
+  render() {
 
-        </main>
-    </div>
-
-  );
+    return (
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Search Saved Repos</Link>
+              </li>
+              <li>
+                <Link to="/github">Search Github</Link>
+              </li>
+            </ul>
+          </nav>
+  
+          
+          <Switch>
+            <Route path="/github">
+              <GithubSearch />
+            </Route>            
+            <Route path="/">
+              <SavedRepos />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;
