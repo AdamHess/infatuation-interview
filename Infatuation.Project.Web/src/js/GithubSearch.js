@@ -1,6 +1,6 @@
 ﻿
 import React from 'react';
-
+import TableRow from './Shared/TableRow'
 export default class GithubSearch extends React.Component {
     constructor(opts) {
         super(opts);
@@ -73,15 +73,9 @@ export default class GithubSearch extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.searchResults.map((item, index) =>
-                            <tr>
-                                <td>{item.id}</td>
-                                <td>{item.fullName}</td>
-                                <td>{item.createdAt}</td>
-                                <td>{item.stargazersCount}</td>
-                                <td>{item.language}</td>
-                                <td><a href={item.htmlUrl}>Access</a></td>
+                            <TableRow item={item} >
                                 <td><button className="btn btn-primary saveButton" data-id={item.id} onClick={this.saveRepo}>Save</button></td>
-                            </tr>
+                            </TableRow>
                         )}
                     </tbody>
                 </table>
@@ -90,3 +84,5 @@ export default class GithubSearch extends React.Component {
 
     }
 }
+
+

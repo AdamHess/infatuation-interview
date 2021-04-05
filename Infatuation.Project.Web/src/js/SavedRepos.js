@@ -1,6 +1,6 @@
 ﻿import $ from 'jquery'
 import React from 'react';
-
+import TableRow from './Shared/TableRow'
 
 export default class SavedRepos extends React.Component {
     constructor(options) {
@@ -24,15 +24,9 @@ export default class SavedRepos extends React.Component {
                     </thead>
                     <tbody>
                         {this.state.savedRepos.map((item, index) =>
-                            <tr key={index}>
-                                <td>{item.id}</td>
-                                <td>{item.fullName}</td>
-                                <td>{item.createdAt}</td>
-                                <td>{item.stargazersCount}</td>
-                                <td>{item.language}</td>
-                                <td><a href={item.url}>Access</a></td>
+                            <TableRow item={item}>
                                 <td><div className="btn btn-danger deleteButton" onClick={this.deleteRepo} data-id={item.id}>Delete</div></td>
-                            </tr>
+                            </TableRow>                            
                         )}
 
                     </tbody>
