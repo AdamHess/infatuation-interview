@@ -1,6 +1,7 @@
 ﻿import $ from 'jquery'
 import React from 'react';
 import TableRow from './Shared/TableRow'
+import SharedHeader from './SharedHeader'
 
 export default class SavedRepos extends React.Component {
     constructor(options) {
@@ -11,17 +12,7 @@ export default class SavedRepos extends React.Component {
         if (this.state && this.state.savedRepos) {
         return (
                 <table className="table" >
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Full Name</th>
-                            <th>Created At</th>
-                            <th>Stargazers</th>
-                            <th>Language</th>
-                            <th>Link</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                    <SharedHeader/>
                     <tbody>
                         {this.state.savedRepos.map((item, index) =>
                             <TableRow item={item}>

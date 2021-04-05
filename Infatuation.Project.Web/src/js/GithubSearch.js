@@ -60,17 +60,7 @@ export default class GithubSearch extends React.Component {
                 <input value={this.state.searchTerm} className="form-control searchField" name="q" onChange={this.searchForRepo} />
 
                 <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Full Name</th>
-                            <th>Created At</th>
-                            <th>Stargazers</th>
-                            <th>Language</th>
-                            <th>Link</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                    <SharedHeader/>
                     <tbody>
                         {this.state.searchResults.map((item, index) =>
                             <TableRow item={item} >
