@@ -14,7 +14,12 @@ export default class GithubSearch {
     }
 
     async _loadRepos(searchTerm) {
-        const results = await $.get('/githubrepos/search?q=' + encodeURIComponent(searchTerm));
+        const repoSearch = $.get('/githubrepos/search?q=' + encodeURIComponent(searchTerm));
+        repoSearch
+            .fail(function() {
+            console.log("Unable To Save Repo");
+        });
+        const results = await repoSearch;
         this.$results.html(templateFunction(results));
         this.$results.find('table').DataTable({
             searching: false,

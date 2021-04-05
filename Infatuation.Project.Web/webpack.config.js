@@ -1,9 +1,9 @@
 
 const path = require('path');
-const webpack =require('Webpack');
+const webpack =require('webpack');
 module.exports = {
     mode: 'development',
-    entry: './src/js/main.js',
+    entry: path.resolve(__dirname, 'src/js/main.js'),
     output: {
         path: path.resolve(__dirname, 'wwwroot/js'),
         filename: 'main.js'
