@@ -9,6 +9,7 @@ export default class GithubSearch extends React.Component {
             searchResults: []
         };
         this.searchForRepo = this.searchForRepo.bind(this);
+        this.saveRepo = this.saveRepo.bind(this);
 
     }
 
@@ -35,6 +36,22 @@ export default class GithubSearch extends React.Component {
             searchResults: repoSearch,
             searchTerm: e.target.value
         });
+    }
+    async saveRepo(e) {
+        const repoid = e.target.dataset.id;
+        if (e.target.getAttribute('disabled')) {
+            return;
+        }
+        const result = await fetch("/localservice/" + encodeURIComponent(repoid), {
+            method: 'POST'
+        });
+        if (result.status !== 200)
+        {
+            alert("Error Saving");
+            return;
+        }
+        e.target.setAttribute('disabled', true);
+        e.target.innerText = "Saved"            
     }
 
     render() {
@@ -64,7 +81,7 @@ export default class GithubSearch extends React.Component {
                                 <td>{item.stargazersCount}</td>
                                 <td>{item.language}</td>
                                 <td><a href={item.htmlUrl}>Access</a></td>
-                                <td><button className="btn btn-primary saveButton" data-id={item.id}>Save</button></td>
+                                <td><button className="btn btn-primary saveButton" data-id={item.id} onClick={this.saveRepo}>Save</button></td>
                             </tr>
                         )}
                     </tbody>
