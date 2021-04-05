@@ -1,6 +1,6 @@
 
 const path = require('path');
-const webpack =require('webpack');
+const webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: path.resolve(__dirname, 'src/js/main.js'),
@@ -16,6 +16,13 @@ module.exports = {
     ],
     module: {
         rules: [
+
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader'],
+            },
+
             {
                 test: /\.s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
@@ -28,10 +35,13 @@ module.exports = {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
                 type: 'asset',
             },
-        { test: /\.hbs/, loader: "handlebars-loader" }
+            { test: /\.hbs/, loader: "handlebars-loader" }
 
         ]
     },
+    resolve: {
+        extensions: ['*', '.js', '.jsx'],
+      },
     externals: {
         jquery: 'jQuery',
         handlebars: 'Handlebars',
