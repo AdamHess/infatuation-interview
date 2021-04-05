@@ -17,9 +17,9 @@ namespace Infatuation.Foundation.LocalServiceClient
         private readonly ILogger<LocalServiceClient> _logger;
 
 
-        public LocalServiceClient(string ServiceUrl, ILogger<LocalServiceClient> logger)
+        public LocalServiceClient(string serviceUrl, ILogger<LocalServiceClient> logger)
         {
-            _serviceUrl = ServiceUrl;
+            _serviceUrl = serviceUrl;
             ConfigureClient();
             _logger = logger;
         }

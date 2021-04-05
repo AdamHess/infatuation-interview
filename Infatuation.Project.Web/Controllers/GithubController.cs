@@ -37,21 +37,26 @@ namespace Infatuation.Project.Web.Controllers
 
             var srr = new SearchRepositoriesRequest(q)
             {
-                PerPage = pagesize, 
-                Page = page, 
-                In = new[] { InQualifier.Name }
+                PerPage = pagesize,
+                Page = page,
+                In = new[] { InQualifier.Name },
             };
 
             try
             {
                 var result = await _githubClient.Search.SearchRepo(srr);
-                var ids =_localServiceClient.GetRepos().Select(m => m.Id);
-                var nonSavedResults= result.Items.Where(i => !ids.Contains(i.Id.ToString()));
-                return Json(nonSavedResults);
+                var ids =_localServiceClient.GetRepos()?
+                    .Select(m => m.Id);
+                if (ids != null)
+                {
+                    return Json( result.Items.Where(i => !ids.Contains(i.Id.ToString())));
+                }
+
+                return Json(result.Items);
             }
             catch (Exception e)
             {
-                _logger.LogInformation("Problem", e);
+                _logger.LogError( e, "Problem");
                 return Problem();
             }
 
