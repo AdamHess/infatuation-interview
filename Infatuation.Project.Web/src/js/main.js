@@ -1,6 +1,7 @@
- import SavedResources from './Index';
+ import SavedRepos from './SavedRepos';
+ import GithubSearch from './GithubSearch';
  import React from 'react';
  import ReactDOM from 'react-dom';
 
 
-ReactDOM.render(<SavedResources/>, document.getElementById('indexBody'))
+ReactDOM.render(<GithubSearch/>, document.getElementById('indexBody'))

@@ -5,6 +5,7 @@ import React from 'react';
 export default class SavedResources extends React.Component {
     constructor(options) {
         super(options);
+        this.deleteRepo = this.deleteRepo.bind(this);
     }
     render() {
         if (this.state && this.state.savedRepos) {
@@ -44,14 +45,14 @@ export default class SavedResources extends React.Component {
 
     }
     async deleteRepo(e) {
-        fetch(`/localservice/${e.target.dataset.id}`,
+        await fetch(`/localservice/${e.target.dataset.id}`,
         {            
             method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(s => console.log(s))
-        
-            $(e.target).parents('tr').fadeOut();        
+        })                        
+        .catch(s => alert("unable to delete"));
+        this.setState((prevState, props) => ({
+            savedRepos: prevState.savedRepos.filter(m => m.id != e.target.dataset.id)
+          }));                                
     }
     componentDidMount() {
         fetch("/localservice")

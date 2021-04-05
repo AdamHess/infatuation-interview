@@ -1,63 +1,76 @@
-﻿import templateFunction from '../templates/githubListingTemplate.hbs';
-import $ from 'jquery';
+﻿
+import React from 'react';
 
-export default class GithubSearch {
-    constructor($el) {
-        this.$el = $el;
-        this.$results = $el.find('.searchResults');
-        this._configureSearch();
-        this._bindSaveHandler();
+export default class GithubSearch extends React.Component {
+    constructor(opts) {
+        super(opts);
+        this.state = {
+            searchTerm: '',
+            searchResults: []
+        };
+        this.searchForRepo = this.searchForRepo.bind(this);
+
     }
 
-    _displayLoading() {
-        this.$results.html("<img class='loadingIcon' src='/loadingspinner.gif'/>");
-    }
+    async searchForRepo(e) {
 
-    async _loadRepos(searchTerm) {
-        const repoSearch = $.get('/githubrepos/search?q=' + encodeURIComponent(searchTerm));
-        repoSearch
-            .fail(function() {
-            console.log("Unable To Save Repo");
-        });
-        const results = await repoSearch;
-        this.$results.html(templateFunction(results));
-        this.$results.find('table').DataTable({
-            searching: false,
-            paging: false,
-            bInfo: false
-        });
-    }
-
-    _onKeyupHandler(e) {
-        let searchTerm = e.target.value;
-        if (searchTerm.length < 3) {
+        if (e.target.value.length < 3) {
+            this.setState((prevState) => {
+                return {
+                    searchTerm: e.target.value,
+                    searchResults: []
+                }
+            });
             return;
         }
-        this._displayLoading();
-        this._loadRepos(searchTerm);
+
+        this.setState((prevState) => {
+            return {
+                searchTerm: e.target.value,
+                searchResults: prevState.searchResults ?? []
+            }
+        });
+        const repoSearch = await (await fetch('/githubrepos/search?q=' + encodeURIComponent(this.state.searchTerm))).json();
+        this.setState({
+            searchResults: repoSearch,
+            searchTerm: e.target.value
+        });
     }
 
-    _configureSearch() {
-        this.$el.find("input").keyup(_.debounce(this._onKeyupHandler.bind(this), 300));
+    render() {
+        return (
+            <div>
+                <label for="githubSearch">Search Github</label>
+                <input value={this.state.searchTerm} className="form-control searchField" name="q" onChange={this.searchForRepo} />
 
-    }
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Full Name</th>
+                            <th>Created At</th>
+                            <th>Stargazers</th>
+                            <th>Language</th>
+                            <th>Link</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.searchResults.map((item, index) =>
+                            <tr>
+                                <td>{item.id}</td>
+                                <td>{item.fullName}</td>
+                                <td>{item.createdAt}</td>
+                                <td>{item.stargazersCount}</td>
+                                <td>{item.language}</td>
+                                <td><a href={item.htmlUrl}>Access</a></td>
+                                <td><button className="btn btn-primary saveButton" data-id={item.id}>Save</button></td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        )
 
-    _bindSaveHandler() {
-        this.$results.on('click', '.saveButton', function(e) {
-
-                let target = $(e.target);
-                if (target.attr("disabled")) {
-                    return;
-                }
-                let githubId = target.data('id');
-                $.post("/localservice/" + encodeURIComponent(githubId))
-                    .done(function() {
-                        target.text("Saved");
-                        target.attr("disabled", "");
-                    })
-                    .fail(function() {
-                        alert("Unable To Save Repo");
-                    });
-            });
     }
 }
