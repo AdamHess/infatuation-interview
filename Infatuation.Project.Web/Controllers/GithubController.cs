@@ -32,6 +32,7 @@ namespace Infatuation.Project.Web.Controllers
         }
         [HttpGet]
         [Route("/githubrepos/search")]
+        [ResponseCache(Duration = 500, VaryByQueryKeys = new []{"q"}, Location = ResponseCacheLocation.Any, NoStore = false) ]
         public async Task<IActionResult> Search(string q, int pagesize = 30, int page = 0)
         {
 
