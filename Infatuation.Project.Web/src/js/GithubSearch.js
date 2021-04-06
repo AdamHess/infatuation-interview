@@ -1,6 +1,6 @@
 ﻿
 import React from 'react';
-import TableRow from './Shared/TableRow'
+import SharedButtonedTable from "./SharedButtonedTable"
 export default class GithubSearch extends React.Component {
     constructor(opts) {
         super(opts);
@@ -54,23 +54,19 @@ export default class GithubSearch extends React.Component {
     }
 
     render() {
+        if (this.state.searchResults)
+        {
         return (
             <div>
                 <label for="githubSearch">Search Github</label>
                 <input value={this.state.searchTerm} className="form-control searchField" name="q" onChange={this.searchForRepo} />
-
-                <table className="table">
-                    <SharedHeader/>
-                    <tbody>
-                        {this.state.searchResults.map((item, index) =>
-                            <TableRow item={item} >
-                                <td><button className="btn btn-primary saveButton" data-id={item.id} onClick={this.saveRepo}>Save</button></td>
-                            </TableRow>
-                        )}
-                    </tbody>
-                </table>
+                <SharedButtonedTable items={this.state.searchResults} buttonClassName='btn btn-primary' onButtonClick={this.saveRepo} buttonText="Save" />
             </div>
-        )
+        );
+        }
+        else if (!this.state.searchResults && this.state.searchTerm) {
+            return (<h2>No Results...</h2>);
+        }
 
     }
 }

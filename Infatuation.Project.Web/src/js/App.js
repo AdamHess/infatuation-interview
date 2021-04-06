@@ -28,7 +28,6 @@ class App extends React.Component {
               </li>
             </ul>
           </nav>
-  
           
           <Switch>
             <Route path="/github">

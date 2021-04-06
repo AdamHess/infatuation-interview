@@ -1,7 +1,6 @@
 ﻿import $ from 'jquery'
 import React from 'react';
-import TableRow from './Shared/TableRow'
-import SharedHeader from './SharedHeader'
+import SharedButtonedTable from './SharedButtonedTable'
 
 export default class SavedRepos extends React.Component {
     constructor(options) {
@@ -10,22 +9,10 @@ export default class SavedRepos extends React.Component {
     }
     render() {
         if (this.state && this.state.savedRepos) {
-        return (
-                <table className="table" >
-                    <SharedHeader/>
-                    <tbody>
-                        {this.state.savedRepos.map((item, index) =>
-                            <TableRow item={item}>
-                                <td><div className="btn btn-danger deleteButton" onClick={this.deleteRepo} data-id={item.id}>Delete</div></td>
-                            </TableRow>                            
-                        )}
-
-                    </tbody>
-                </table>)
+        return (<SharedButtonedTable items={this.state.savedRepos} buttonClassName="btn btn-danger" onButtonClick={this.deleteRepo} buttonText="Delete"/>);
         }
         else {
-            return <h2>No Saved Repos, add some!</h2>
-            
+            return <h2>No Saved Repos, add some!</h2>            
         }
 
     }
