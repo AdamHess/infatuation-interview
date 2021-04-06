@@ -20,10 +20,10 @@ class App extends React.Component {
         <div>
           <nav>
             <ul>
-              <li>
+              <li key="ma4324fdsfin">
                 <Link to="/">Search Saved Repos</Link>
               </li>
-              <li>
+              <li key="dfdsafdsafsdsa">
                 <Link to="/github">Search Github</Link>
               </li>
             </ul>

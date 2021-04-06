@@ -31,6 +31,7 @@ export default class SavedRepos extends React.Component {
         .then(res => res.json())
         .then((data) => {
                 this.setState({ savedRepos: data });
-            })
+            }).catch(e => alert("Error Loading Saved Repos"));
+            
     }
 }
