@@ -7,7 +7,8 @@ export default class SavedRepos extends React.Component {
         super(options);
         this.deleteRepo = this.deleteRepo.bind(this);
         this.state = {
-            loading: true
+            loading: true,
+            savedRepos: []
         };
     }
     render() {
@@ -26,19 +27,20 @@ export default class SavedRepos extends React.Component {
 
     }
     async deleteRepo(e) {
+        const that = this;
         fetch(`/localrepo/${e.target.dataset.id}`,
             {
                 method: 'DELETE'
             })
-            .then(function (res) {
+            .then(function (res) {                
                 if (!res.ok){
-                    throw Error("Status is Not OK")
+                    throw Error("Status is Not OK");
                 }
-                this.setState((prevState, props) => ({
+                that.setState((prevState, props) => ({
                     savedRepos: prevState.savedRepos.filter(m => m.id != e.target.dataset.id)
-                }));
+                  }));                    
             })
-            .catch(s => alert("unable to delete"));
+            .catch(s => alert("Error Deleting Repo"));
 
 
     }
@@ -48,7 +50,7 @@ export default class SavedRepos extends React.Component {
                 if (!res.ok) {
                     throw Error("Response Status is not OK");
                 }
-                res.json()
+               return res.json();
             })            
             .then((data) => {
                 this.setState({ savedRepos: data, loading: false });
