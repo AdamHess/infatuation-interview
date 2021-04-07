@@ -1,44 +1,38 @@
 import React from 'react';
-
+import PageHeader from './PageHeader';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  HashRouter
 } from "react-router-dom";
+import AppMain from './AppMain';
 import SavedRepos from './SavedRepos';
 import GithubSearch from './GithubSearch';
 
 class App extends React.Component {
   constructor(opts) {
-  super(opts);
+    super(opts);
   }
   render() {
 
     return (
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li key="ma4324fdsfin">
-                <Link to="/">Search Saved Repos</Link>
-              </li>
-              <li key="dfdsafdsafsdsa">
-                <Link to="/github">Search Github</Link>
-              </li>
-            </ul>
-          </nav>
-          
-          <Switch>
-            <Route path="/github">
+      <HashRouter>
+        <Switch>
+          <Route path="/github">
+            <PageHeader />
+            <AppMain>
               <GithubSearch />
-            </Route>            
-            <Route path="/">
+            </AppMain>
+          </Route>
+          <Route path="/">
+            <PageHeader />
+            <AppMain>
               <SavedRepos />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+            </AppMain>
+          </Route>
+        </Switch>
+      </HashRouter>
     );
   }
 }
