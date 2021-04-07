@@ -1,0 +1,11 @@
+version: "3.9"
+services: 
+  webapp:
+    build: "."
+    ports: 
+      - "4433:443"
+      - "8000:80"
+  localservice: 
+    image: "gcr.io/hiring-278615/reposerver"
+    ports:
+    - "8080:80"

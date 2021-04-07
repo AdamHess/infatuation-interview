@@ -12,15 +12,15 @@ using RestSharp;
 namespace Infatuation.Project.Web.Controllers
 {
     [ApiController]
-    public class GithubController : Controller
+    public class GithubRepoController : Controller
     {
 
         private readonly GitHubClient _githubClient;
         private readonly IMapper _mapper;
-        private readonly ILogger<GithubController> _logger;
+        private readonly ILogger<GithubRepoController> _logger;
         private readonly LocalServiceClient _localServiceClient;
 
-        public GithubController(ILogger<GithubController> logger,
+        public GithubRepoController(ILogger<GithubRepoController> logger,
             GitHubClient client,
             LocalServiceClient lsc,
             IMapper mapper)
@@ -32,6 +32,7 @@ namespace Infatuation.Project.Web.Controllers
         }
         [HttpGet]
         [Route("/githubrepos/search")]
+        [ResponseCache(Duration = 500, VaryByQueryKeys = new []{"q"}, Location = ResponseCacheLocation.Any, NoStore = false) ]
         public async Task<IActionResult> Search(string q, int pagesize = 30, int page = 0)
         {
 
