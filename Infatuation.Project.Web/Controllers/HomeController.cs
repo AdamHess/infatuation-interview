@@ -21,9 +21,9 @@ namespace Infatuation.Project.Web.Controllers
         private readonly GitHubClient _githubClient;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, 
-            LocalServiceClient localLocalServiceClient, 
-            GitHubClient client, 
+        public HomeController(ILogger<HomeController> logger,
+            LocalServiceClient localLocalServiceClient,
+            GitHubClient client,
             IMapper mapper)
         {
             _logger = logger;
@@ -31,20 +31,6 @@ namespace Infatuation.Project.Web.Controllers
             _githubClient = client;
             _mapper = mapper;
         }
-
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-
-        public IActionResult SearchGithub()
-        {
-            return View();
-
-        }
-
 
         public async Task<IActionResult> GithubResults(string q)
         {
