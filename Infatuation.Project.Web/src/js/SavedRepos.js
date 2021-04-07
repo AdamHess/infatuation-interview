@@ -6,32 +6,56 @@ export default class SavedRepos extends React.Component {
     constructor(options) {
         super(options);
         this.deleteRepo = this.deleteRepo.bind(this);
+        this.state = {
+            loading: true
+        };
     }
     render() {
-        if (this.state && this.state.savedRepos) {
-        return (<SharedButtonedTable items={this.state.savedRepos} buttonClassName="btn btn-danger" onButtonClick={this.deleteRepo} buttonText="Delete"/>);
+        if (this.state.savedRepos) {
+            return (<SharedButtonedTable items={this.state.savedRepos} buttonClassName="btn btn-danger" onButtonClick={this.deleteRepo} buttonText="Delete" />);
         }
-        else {
-            return <h2>No Saved Repos, add some!</h2>            
+        else if (this.state.loading) {
+            return (<img src="/loadingspinner.gif" />);
+        }
+        else if (this.state.errorLoading) {
+            return (<h2>Unable to Load Repos</h2>);
+        }
+        else {            
+            return (<h2>No Saved Repos, add some!</h2>);
         }
 
     }
     async deleteRepo(e) {
-        await fetch(`/localrepo/${e.target.dataset.id}`,
-        {            
-            method: 'DELETE'
-        })                        
-        .catch(s => alert("unable to delete"));
-        this.setState((prevState, props) => ({
-            savedRepos: prevState.savedRepos.filter(m => m.id != e.target.dataset.id)
-          }));                                
+        fetch(`/localrepo/${e.target.dataset.id}`,
+            {
+                method: 'DELETE'
+            })
+            .then(function (res) {
+                if (!res.ok){
+                    throw Error("Status is Not OK")
+                }
+                this.setState((prevState, props) => ({
+                    savedRepos: prevState.savedRepos.filter(m => m.id != e.target.dataset.id)
+                }));
+            })
+            .catch(s => alert("unable to delete"));
+
+
     }
     componentDidMount() {
         fetch("/localrepo")
-        .then(res => res.json())
-        .then((data) => {
-                this.setState({ savedRepos: data });
-            }).catch(e => alert("Error Loading Saved Repos"));
-            
+            .then(res => {                
+                if (!res.ok) {
+                    throw Error("Response Status is not OK");
+                }
+                res.json()
+            })            
+            .then((data) => {
+                this.setState({ savedRepos: data, loading: false });
+            })
+            .catch(e => {
+                this.setState({ loading: false, errorLoading: true });
+            });
+
     }
 }

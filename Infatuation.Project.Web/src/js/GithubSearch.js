@@ -27,14 +27,21 @@ export default class GithubSearch extends React.Component {
         this.setState((prevState) => {
             return {
                 searchTerm: e.target.value,
-                searchResults: prevState.searchResults ?? []
+                searchResults: prevState.searchResults ?? [],
+                loading: true
+           
             }
         });
-        const repoSearch = await (await fetch('/githubrepos/search?q=' + encodeURIComponent(this.state.searchTerm))).json();
-        this.setState({
-            searchResults: repoSearch,
-            searchTerm: e.target.value
+        fetch('/githubrepos/search?q=' + encodeURIComponent(this.state.searchTerm))
+        .then(res => res.json())
+        .then((data) => {            
+            this.setState({
+                searchResults: data,
+                searchTerm: e.target.value,
+                loading: false
+            });
         });
+
     }
     async saveRepo(e) {
         const repoid = e.target.dataset.id;
@@ -44,9 +51,9 @@ export default class GithubSearch extends React.Component {
         const result = await fetch("/localrepo/" + encodeURIComponent(repoid), {
             method: 'POST'
         });
-        if (result.status !== 200)
+        if (!result.ok)
         {
-            alert("Error Saving");
+            this.setState({ errorSaving: true })
             return;
         }
         e.target.setAttribute('disabled', true);
@@ -54,19 +61,28 @@ export default class GithubSearch extends React.Component {
     }
 
     render() {
-        if (this.state.searchResults)
-        {
+        
         return (
+            
             <div>
                 <label for="githubSearch">Search Github</label>
                 <input value={this.state.searchTerm} className="form-control searchField" name="q" onChange={this.searchForRepo} />
+              {this.state.loading &&
+                <img src="/loadingspinner.gif" />
+              }
+                {this.state.errorSaving &&
+                    <h4>Error saving repo. Local Service may be offline.</h4>
+                }
+                {this.state.searchResults && this.state.searchTerm && !this.state.loading &&
                 <SharedButtonedTable items={this.state.searchResults} buttonClassName='btn btn-primary' onButtonClick={this.saveRepo} buttonText="Save" />
+            }
+            {!this.state.searchResults && this.searchTerm && 
+            <h2>No Results....</h2>
+            }
             </div>
         );
-        }
-        else if (!this.state.searchResults && this.state.searchTerm) {
-            return (<h2>No Results...</h2>);
-        }
+        
+        
 
     }
 }
