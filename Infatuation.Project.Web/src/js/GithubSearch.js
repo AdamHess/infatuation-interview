@@ -41,7 +41,7 @@ export default class GithubSearch extends React.Component {
         if (e.target.getAttribute('disabled')) {
             return;
         }
-        const result = await fetch("/localservice/" + encodeURIComponent(repoid), {
+        const result = await fetch("/localrepo/" + encodeURIComponent(repoid), {
             method: 'POST'
         });
         if (result.status !== 200)

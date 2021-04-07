@@ -11,15 +11,15 @@ using Octokit;
 
 namespace Infatuation.Project.Web.Controllers
 {
-    [Route("localservice")]
+    [Route("localrepo")]
     [ApiController]
-    public class LocalServiceController : Controller
+    public class LocalRepoController : Controller
     {
         private readonly LocalServiceClient _localServiceClient;
         private readonly ILogger<HomeController> _logger;
         private readonly GitHubClient _githubClient;
         private readonly IMapper _mapper;
-        public LocalServiceController(ILogger<HomeController> logger,
+        public LocalRepoController(ILogger<HomeController> logger,
             LocalServiceClient localLocalServiceClient,
             GitHubClient client,
             IMapper mapper)
@@ -52,6 +52,11 @@ namespace Infatuation.Project.Web.Controllers
             {
 
                 return NotFound("Invalid Github Repo Id");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error");
+                return Problem();
             }
             return Ok();
         }

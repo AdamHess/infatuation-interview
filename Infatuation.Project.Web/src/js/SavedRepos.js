@@ -17,7 +17,7 @@ export default class SavedRepos extends React.Component {
 
     }
     async deleteRepo(e) {
-        await fetch(`/localservice/${e.target.dataset.id}`,
+        await fetch(`/localrepo/${e.target.dataset.id}`,
         {            
             method: 'DELETE'
         })                        
@@ -27,7 +27,7 @@ export default class SavedRepos extends React.Component {
           }));                                
     }
     componentDidMount() {
-        fetch("/localservice")
+        fetch("/localrepo")
         .then(res => res.json())
         .then((data) => {
                 this.setState({ savedRepos: data });

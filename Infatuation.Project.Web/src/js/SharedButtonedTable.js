@@ -23,19 +23,19 @@ export default class SharedButtonedTable extends React.Component {
                 <thead>
                     <tr>
                         <th>
-                            <div onClick={this.onSortChange} data-column-name="id">Id <ColumnSortIndicator column="id" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></div>
+                            <a onClick={this.onSortChange} data-column-name="id">Id <ColumnSortIndicator column="id" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></a>
                         </th>
                         <th>
-                            <div onClick={this.onSortChange} data-column-name="fullName" data-type="string">Full Name  <ColumnSortIndicator column="fullName" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></div>
+                            <a onClick={this.onSortChange} data-column-name="fullName" data-type="string">Full Name  <ColumnSortIndicator column="fullName" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></a>
                         </th>
                         <th>
-                            <div onClick={this.onSortChange} data-column-name="createdAt" data-type="date">Created At  <ColumnSortIndicator column="createdAt" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </div>
+                            <a onClick={this.onSortChange} data-column-name="createdAt" data-type="date">Created At  <ColumnSortIndicator column="createdAt" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </a>
                         </th>
                         <th>
-                            <div onClick={this.onSortChange} data-column-name="stargazersCount">Stargazers  <ColumnSortIndicator column="stargazersCount" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </div>
+                            <a onClick={this.onSortChange} data-column-name="stargazersCount">Stargazers  <ColumnSortIndicator column="stargazersCount" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </a>
                         </th>
                         <th>
-                            <div onClick={this.onSortChange} data-column-name="language" data-type="string">Language  <ColumnSortIndicator column="language" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass}/></div>
+                            <a onClick={this.onSortChange} data-column-name="language" data-type="string">Language  <ColumnSortIndicator column="language" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass}/></a>
                         </th>
                         <th>Link</th>
                         <th></th>
