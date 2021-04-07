@@ -41,8 +41,6 @@ export default class SavedRepos extends React.Component {
                   }));                    
             })
             .catch(s => alert("Error Deleting Repo"));
-
-
     }
     componentDidMount() {
         fetch("/localrepo")

@@ -44,7 +44,7 @@ export default class SharedButtonedTable extends React.Component {
                 </thead>
                 <tbody>
                     {this.props.items.sort(this.state.sortFunction).map((item, index) =>
-                    (<tr>
+                    (<tr key={item.id}>
                         <td>{item.id}</td>
                         <td>{item.fullName}</td>
                         <td>{format(new Date(item.createdAt), "MM/dd/yyyy")}</td>
