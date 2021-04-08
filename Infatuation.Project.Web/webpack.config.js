@@ -14,7 +14,7 @@ module.exports = {
             $: "jQuery",
             jQuery: "jQuery"
         }),
-        new ESLintPlugin(),
+        new ESLintPlugin({fix: true}),
 
     ],
     module: {

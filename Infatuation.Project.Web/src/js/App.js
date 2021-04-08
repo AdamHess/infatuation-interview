@@ -4,8 +4,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  HashRouter
-} from "react-router-dom";
+  HashRouter,
+} from 'react-router-dom';
 import AppMain from './AppMain';
 import SavedRepos from './SavedRepos';
 import GithubSearch from './GithubSearch';
@@ -15,7 +15,6 @@ class App extends React.Component {
     super(opts);
   }
   render() {
-
     return (
       <HashRouter>
         <Switch>
