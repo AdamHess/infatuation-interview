@@ -1,9 +1,25 @@
 import React from 'react';
-import $ from 'jquery';
+import PropTypes from 'prop-types';
+
 import {format} from 'date-fns';
-import {render} from 'react-dom';
+
 
 export default class SharedButtonedTable extends React.Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: propTypes.string.isRequired,
+      fullName: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      stargazersCount: PropTypes.number.isRequired,
+      language: PropTypes.string,
+      url: PropTypes.string.isRequired,
+      onButtonClick: PropTypes.function.isRequired,
+
+    })),
+    buttonClassName: PropTypes.string.isRequired,
+    buttonText: PropTypes.string.isRequired,
+    onButtonClick: PropTypes.function.isRequired,
+  };
   constructor(opts) {
     super(opts);
     this.refTable = React.createRef();
@@ -13,29 +29,59 @@ export default class SharedButtonedTable extends React.Component {
     };
     this.onSortChange = this.onSortChange.bind(this);
   }
+
   render() {
     if (!this.props.items.length) {
       return null;
     }
-
     return (
       <table ref={this.refTable} className="table" >
         <thead>
           <tr>
             <th>
-              <a onClick={this.onSortChange} data-column-name="id">Id <ColumnSortIndicator column="id" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></a>
+              <a onClick={this.onSortChange} data-column-name="id">
+                Id
+                <ColumnSortIndicator
+                  column="id"
+                  sortColumn={this.state.currentColumn}
+                  direction={this.state.currentSortClass} />
+              </a>
             </th>
             <th>
-              <a onClick={this.onSortChange} data-column-name="fullName" data-type="string">Full Name  <ColumnSortIndicator column="fullName" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /></a>
+              <a onClick={this.onSortChange} data-column-name="fullName" data-type="string">
+                Full Name
+                <ColumnSortIndicator
+                  column="fullName"
+                  sortColumn={this.state.currentColumn}
+                  direction={this.state.currentSortClass} />
+              </a>
             </th>
             <th>
-              <a onClick={this.onSortChange} data-column-name="createdAt" data-type="date">Created At  <ColumnSortIndicator column="createdAt" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </a>
+              <a onClick={this.onSortChange} data-column-name="createdAt" data-type="date">
+                Created At
+                <ColumnSortIndicator
+                  column="createdAt"
+                  sortColumn={this.state.currentColumn}
+                  direction={this.state.currentSortClass} />
+              </a>
             </th>
             <th>
-              <a onClick={this.onSortChange} data-column-name="stargazersCount">Stargazers  <ColumnSortIndicator column="stargazersCount" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass} /> </a>
+              <a onClick={this.onSortChange} data-column-name="stargazersCount">
+                Stargazers
+                <ColumnSortIndicator
+                  column="stargazersCount"
+                  sortColumn={this.state.currentColumn}
+                  direction={this.state.currentSortClass} />
+              </a>
             </th>
             <th>
-              <a onClick={this.onSortChange} data-column-name="language" data-type="string">Language  <ColumnSortIndicator column="language" sortColumn={this.state.currentColumn} direction={this.state.currentSortClass}/></a>
+              <a onClick={this.onSortChange} data-column-name="language" data-type="string">
+                Language
+                <ColumnSortIndicator
+                  column="language"
+                  sortColumn={this.state.currentColumn}
+                  direction={this.state.currentSortClass} />
+              </a>
             </th>
             <th>Link</th>
             <th></th>
@@ -51,7 +97,13 @@ export default class SharedButtonedTable extends React.Component {
               <td>{item.stargazersCount}</td>
               <td>{item.language}</td>
               <td><a href={item.url}>Access</a></td>
-              <td><button className={this.props.buttonClassName} data-id={item.id} onClick={this.props.onButtonClick}>{this.props.buttonText}</button></td>
+              <td>
+                <button
+                  className={this.props.buttonClassName}
+                  data-id={item.id}
+                  onClick={this.props.onButtonClick}>
+                  {this.props.buttonText}</button>
+              </td>
             </tr>))}
         </tbody>
       </table>);
@@ -84,6 +136,7 @@ export default class SharedButtonedTable extends React.Component {
   };
 }
 
+
 function sortTypes(column) {
   return {
     up: {
@@ -103,6 +156,11 @@ function sortTypes(column) {
 
 
 class ColumnSortIndicator extends React.Component {
+  static propTypes = {
+    sortColumn: PropTypes.string.isRequired,
+    column: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+  }
   constructor(opts) {
     super(opts);
   }
@@ -113,3 +171,5 @@ class ColumnSortIndicator extends React.Component {
     return null;
   }
 }
+
+

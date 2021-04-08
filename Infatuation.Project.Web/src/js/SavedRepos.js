@@ -1,4 +1,4 @@
-﻿import $ from 'jquery';
+﻿
 import React from 'react';
 import SharedButtonedTable from './SharedButtonedTable';
 
@@ -13,7 +13,11 @@ export default class SavedRepos extends React.Component {
   }
   render() {
     if (this.state.savedRepos) {
-      return (<SharedButtonedTable items={this.state.savedRepos} buttonClassName="btn btn-danger" onButtonClick={this.deleteRepo} buttonText="Delete" />);
+      return (<SharedButtonedTable
+        items={this.state.savedRepos}
+        buttonClassName="btn btn-danger"
+        onButtonClick={this.deleteRepo}
+        buttonText="Delete" />);
     } else if (this.state.loading) {
       return (<img src="/loadingspinner.gif" />);
     } else if (this.state.errorLoading) {

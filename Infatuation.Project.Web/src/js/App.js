@@ -1,7 +1,6 @@
 import React from 'react';
 import PageHeader from './PageHeader';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   HashRouter,

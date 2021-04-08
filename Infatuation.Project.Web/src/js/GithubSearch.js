@@ -62,18 +62,21 @@ export default class GithubSearch extends React.Component {
 
       <div>
         <label htmlFor="githubSearch">Search Github</label>
-        <input value={this.state.searchTerm} className="form-control searchField" name="q" onChange={this.searchForRepo} />
+        <input value={this.state.searchTerm}
+          className="form-control searchField"
+          name="q"
+          onChange={this.searchForRepo} />
         {this.state.loading &&
-                <img src="/loadingspinner.gif" />
+          <img src="/loadingspinner.gif" />
         }
         {this.state.errorSaving &&
-                    <h4>Error saving repo. Local Service may be offline.</h4>
+          <h4>Error saving repo. Local Service may be offline.</h4>
         }
         {this.state.searchResults && this.state.searchTerm && !this.state.loading &&
-                <SharedButtonedTable items={this.state.searchResults} buttonClassName='btn btn-primary' onButtonClick={this.saveRepo} buttonText="Save" />
+          <SharedButtonedTable items={this.state.searchResults} buttonClassName='btn btn-primary' onButtonClick={this.saveRepo} buttonText="Save" />
         }
         {!this.state.searchResults && this.searchTerm &&
-            <h2>No Results....</h2>
+          <h2>No Results....</h2>
         }
       </div>
     );
