@@ -1,6 +1,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: path.resolve(__dirname, 'src/js/main.js'),
@@ -12,7 +13,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: "jQuery",
             jQuery: "jQuery"
-        })
+        }),
+        new ESLintPlugin(),
+
     ],
     module: {
         rules: [
@@ -34,17 +37,14 @@ module.exports = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/,
                 type: 'asset',
-            },
-            { test: /\.hbs/, loader: "handlebars-loader" }
-
+            }
         ]
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
       },
     externals: {
-        jquery: 'jQuery',
-        handlebars: 'Handlebars',
+        jquery: 'jQuery',        
         lodash: "_"
     },
 };
