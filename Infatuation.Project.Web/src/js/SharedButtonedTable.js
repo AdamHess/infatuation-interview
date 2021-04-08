@@ -7,7 +7,7 @@ import {format} from 'date-fns';
 export default class SharedButtonedTable extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
-      id: propTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
       fullName: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
       stargazersCount: PropTypes.number.isRequired,

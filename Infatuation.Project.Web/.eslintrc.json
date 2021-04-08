@@ -26,7 +26,8 @@
                 "code": 120
             }
         ],
-        "require-jsdoc": 0
+        "require-jsdoc": 0,
+        "no-undef": ["error"]
 
     }
 }
