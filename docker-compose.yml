@@ -3,7 +3,7 @@ services:
   webapp:
     build: "."
     environment:  
-      - "ASPNETCORE_GitAccessToken={{ACCESS TOKEN}}"
+      - "ASPNETCORE_GitAccessToken=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"
     ports: 
       - "4433:443"
       - "8000:80"
@@ -11,3 +11,5 @@ services:
     image: "gcr.io/hiring-278615/reposerver"
     ports:
     - "8080:80"
+
+

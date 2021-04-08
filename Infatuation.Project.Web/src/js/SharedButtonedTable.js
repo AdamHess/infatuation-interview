@@ -13,12 +13,12 @@ export default class SharedButtonedTable extends React.Component {
       stargazersCount: PropTypes.number.isRequired,
       language: PropTypes.string,
       url: PropTypes.string.isRequired,
-      onButtonClick: PropTypes.function.isRequired,
+      onButtonClick: PropTypes.func.isRequired,
 
     })),
     buttonClassName: PropTypes.string.isRequired,
     buttonText: PropTypes.string.isRequired,
-    onButtonClick: PropTypes.function.isRequired,
+    onButtonClick: PropTypes.func.isRequired,
   };
   constructor(opts) {
     super(opts);
