@@ -1,3 +1,20 @@
+# Getting it running
+
+While it has not been tested it should be cross platform.
+
+**Requirement:** docker installed.
+
+Then you'll need to generate a Github Personal Access key (classic): https://github.com/settings/tokens
+
+Then replace the placeholder text in the docker-compose.yml file  with that token.
+
+run the usual incantations of `docker compose up`
+
+Access the service at **http://localhost:8000**
+
+
+# **BELOW ARE THE PROMPT ORIGINALLY RECEIVED FOR THE ASSIGNMENT**
+
 # Frontend Engineer Challenge (2-5 hrs)
 
 Thanks for trying our development challenge! Let's get started.
@@ -78,22 +95,3 @@ Third-party libraries are permitted; however, as our intent is to come to unders
 ### Before submitting your code
 
 We expect you to make sure that your solution works with `reposerver` and the Github v3 API before sending it to us.
-
-### Acceptance Criteria
-
-We look for code to be well-factored, follow good practices, and be tested.
-
-What we will look for:
-
-- Does your code fulfill the requirement and successfully run against both `reposerver` and the Github v3 API?
-- How clean is your design? How easy is it to understand, maintain, or extend your code?
-- How did you verify your software, if by automated tests or by other means? How much application code is covered?
-- How did you handle empty data states?
-- What kind of documentation did you ship with your code?
-- How cleanly assembled is your container?
-
-### Housekeeping notes
-- If you run into any issues building the GCR image, please contact us immediately
-- Please feel free to make assumptions, but ensure to note them
-
-Good luck!
