@@ -13,7 +13,7 @@ run the usual incantations of `docker compose up`
 Access the service at **http://localhost:8000**
 
 
-# **BELOW ARE THE PROMPT ORIGINALLY RECEIVED FOR THE ASSIGNMENT**
+## **BELOW ARE THE PROMPT ORIGINALLY RECEIVED FOR THE ASSIGNMENT**
 
 # Frontend Engineer Challenge (2-5 hrs)
 
